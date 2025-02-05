@@ -1,14 +1,24 @@
 pipeline {
     agent any
     stages {
-        stage('Cloner Dépôt') {
+        stage('Cloner le dépôt') {
             steps {
-                echo 'Clonage réussi depuis GitHub !'
+                git 'https://github.com/nom-utilisateur/nom-repo.git'
             }
         }
-        stage('Exécuter Script') {
+        stage('Installer les dépendances') {
             steps {
-                echo 'Exécution réussie dans Jenkins !'
+                sh 'npm install'
+            }
+        }
+        stage('Tests') {
+            steps {
+                sh 'npm test'
+            }
+        }
+        stage('Déploiement') {
+            steps {
+                sh 'npm run deploy'
             }
         }
     }
